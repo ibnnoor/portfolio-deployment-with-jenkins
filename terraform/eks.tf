@@ -1,12 +1,3 @@
-terraform {
-  cloud {
-    organization = "ibnnoor"
-
-    workspaces {
-      name = "altschool-projects"
-    }
-  }
-}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
