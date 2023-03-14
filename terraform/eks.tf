@@ -3,6 +3,7 @@ terraform {
     bucket  = "toyyib-remote-backend-bucket"
     key = "newstate/terraform.tfstate"
     region = "eu-central-1"
+    shared_credentials_file = "/home/vagrant/.aws/credentials"
     dynamodb_table = "terraform_state"
   }
 }
