@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh "terraform init -backend-config="access_key=AKIATVPYMU32T7YDNG6A" -backend-config="E1PDDe9Ou3pGrRSZwkJTgWEnYsd75ROMmq6MQyMl""
+                        sh "terraform init -backend-config="access_key=AKIATVPYMU32T7YDNG6A" -backend-config="secret_key=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""
                         sh "terraform apply -auto-approve"
                     }
                 }
