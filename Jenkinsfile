@@ -9,6 +9,18 @@ pipeline {
     }
 
     stages {
+        
+        stage("Setting environment variables") {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh "export AWS_ACCESS_KEY_ID=AKIATVPYMU32T7YDNG6A"
+                        sh "export AWS_SECRET_ACCESS_KEY=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"
+                        sh "export AWS_DEFAULT_REGION=eu-central-1"
+                    }
+                }
+            }
+        }
         stage("Create an EKS Cluster") {
             steps {
                 script {
