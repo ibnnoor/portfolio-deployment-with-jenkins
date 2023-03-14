@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toyyib-webapp
+  labels:
+    app: demo-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-webapp
+  template:
+    metadata:
+      labels:
+        app: demo-webapp
+    spec:
+      containers:
+        - name: portfolio
+          image: ibnnoor/webapp
+          ports:
+            - containerPort: 80
+
