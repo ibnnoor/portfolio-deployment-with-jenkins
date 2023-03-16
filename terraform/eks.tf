@@ -5,6 +5,12 @@ terraform {
       version = ">=4.2.0"
     }
   }
+    cloud {
+      organization = "ibnnoor"
+      workspaces {
+      name = "altschool-projects"
+    }
+  
 }
 
 provider "aws" {
