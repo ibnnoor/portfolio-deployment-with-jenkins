@@ -1,11 +1,47 @@
 terraform {
-  backend "s3" {
-    bucket  = "toyyib-remote-backend-bucket"
-    key = "newstate"
-    region = "eu-central-1"
-    dynamodb_table = "terraform_state"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">=4.2.0"
+    }
   }
 }
+
+provider "aws" {
+  region = "eu-central-1"
+}
+
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_id
+}
+
+locals {
+  cluster_name = "portfolio"
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+module "eks-kubeconfig" {
+  source     = "hyperbadger/eks-kubeconfig/aws"
+  version    = "1.0.0"
+
+  depends_on = [module.eks]
+  cluster_id =  module.eks.cluster_id
+  }
+
+resource "local_file" "kubeconfig" {
+  content  = module.eks-kubeconfig.kubeconfig
+  filename = "kubeconfig_${local.cluster_name}"
+}
+
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -24,7 +60,8 @@ module "eks" {
       max_capacity     = 2
       min_capacity     = 2
 
-      instance_types = ["t2.micro"]
+      instance_types = ["t3.medium"]
     }
   }
 }
+
