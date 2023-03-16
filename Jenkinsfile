@@ -24,7 +24,7 @@ pipeline {
                 script {
                     dir('kubernetes') {
                         sh "KUBECONFIG=./../terraform/kubeconfig_portfolio kubectl apply -f webapp-deployment.yaml"
-                        sh "KUBECONFIG=./../terraform kubeconfig_portfolio kubectl apply webapp-service.yaml"
+                        sh "KUBECONFIG=./../terraform/kubeconfig_portfolio kubectl apply webapp-service.yaml"
                     }
                 }
             }
