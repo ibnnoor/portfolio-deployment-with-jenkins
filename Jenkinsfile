@@ -44,7 +44,7 @@ pipeline {
         stage("Deploy the microshop to the EKS Cluster") {
             steps {
                 script {
-                    dir('microservices-demo\deploy\kubernetes') {
+                    dir('microservices-demo\deploy\kubernetes\') {
                         sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
