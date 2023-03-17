@@ -5,16 +5,13 @@ terraform {
       version = ">=4.2.0"
     }
   }
-<<<<<<< HEAD
-=======
-    cloud {
-      organization = "ibnnoor"
-      workspaces {
-      name = "altschool-projects"
-    }
-  
->>>>>>> 9614a4c70aa9a63633d84282358531cf3efc1b2b
+  backend "s3" {
+    bucket = "toyyib-remote-backend-bucket"
+    key    = "newstate"
+    region = "eu-central-1"
+  }  
 }
+
 
 provider "aws" {
   region = "eu-central-1"
