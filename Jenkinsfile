@@ -19,15 +19,36 @@ pipeline {
                 }
             }
         }
-        stage("Deploy to EKS") {
+        stage("Set the environment variable") {
             steps {
                 script {
-                    dir('kubernetes') {
-                        sh "KUBECONFIG=./../terraform/kubeconfig_portfolio kubectl apply -f webapp-deployment.yaml"
-                        sh "KUBECONFIG=./../terraform/kubeconfig_portfolio kubectl apply -f webapp-service.yaml"
+                    dir('terraform') {
+                        sh "export KUBEONFIG=kubeconfig_portfolio"
                     }
                 }
             }
         }
+
+        stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        sh "kubectl apply -f webapp-deployment.yaml"
+                        sh "kubectl apply -f webapp-service.yaml"
+                    }
+                }
+            }
+        }
+        stage("Create an EKS Cluster") {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }
+
     }
 }
