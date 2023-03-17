@@ -51,16 +51,5 @@ pipeline {
             }
         }
 
-        #stage("Deploy the Prometheus pods to enable monitoring") {
-        #   steps {
-        #       script {
-        #            dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
-        #                sh "kubectl create -f 00-monitoring-ns.yaml"
-        #                sh "kubectl apply $(ls *-prometheus-*.yaml | awk ' { print " -f " $1 } ')"
-        #                sh "kubectl create -f 00-monitoring-ns.yaml"
-        #            }
-        #        }
-        #    }
-        #}
     }
 }
