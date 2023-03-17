@@ -44,7 +44,7 @@ pipeline {
         stage("Deploy the microshop to the EKS Cluster") {
             steps {
                 script {
-                    dir('microservices-demo\deploy\kubernetes\') {
+                    dir('microservices-demo/deploy/kubernetes') {
                         sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
@@ -54,7 +54,7 @@ pipeline {
         stage("Deploy the Prometheus pods to enable monitoring") {
             steps {
                 script {
-                    dir('microservices-demo\deploy\kubernetes\manifests-monitoring') {
+                    dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
                         sh "kubectl create -f 00-monitoring-ns.yaml"
                         sh "kubectl apply $(ls *-prometheus-*.yaml | awk ' { print " -f " $1 } ')"
                         sh "kubectl create -f 00-monitoring-ns.yaml"
