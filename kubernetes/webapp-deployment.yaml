@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: portfolio
-          image: ibnnoor/webapp
+          image: ibnnoor/mywebsite
           ports:
             - containerPort: 80
 
