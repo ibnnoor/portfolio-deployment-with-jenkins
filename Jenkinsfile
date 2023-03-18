@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh "export KUBECONFIG="/var/lib/jenkins/workspace/final-pipeline/terraform/kubeconfig_portfolio""
+                        sh 'export KUBECONFIG="/var/lib/jenkins/workspace/final-pipeline/terraform/kubeconfig_portfolio"'
                     }
                 }
             }
