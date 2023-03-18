@@ -33,6 +33,7 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
+                        sh "aws eks update-kubeconfig --name project-cluster --region eu-central-1"
                         sh "kubectl apply -f webapp-deployment.yaml"
                         sh "kubectl apply -f webapp-service.yaml"
                         sh "kubectl apply -f postgres-deployment.yaml"
