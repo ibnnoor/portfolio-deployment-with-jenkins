@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh 'export KUBECONFIG="/var/lib/jenkins/workspace/altschool-project/terraform/kubeconfig_portfolio"'
+                        sh "export KUBECONFIG='/var/lib/jenkins/workspace/altschool-project/terraform/kubeconfig_portfolio'"
                     }
                 }
             }
@@ -33,10 +33,10 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                        sh "kubectl apply -f webapp-deployment.yaml"
-                        sh "kubectl apply -f webapp-service.yaml"
-                        sh "kubectl apply -f postgres-deployment.yaml"
-                        sh "kubectl apply -f postgres-service.yaml"
+                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f webapp-deployment.yaml"
+                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f webapp-service.yaml"
+                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f postgres-deployment.yaml"
+                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f postgres-service.yaml"
                     }
                 }
             }
@@ -46,6 +46,8 @@ pipeline {
                 script {
                     dir('microservices-demo/deploy/kubernetes') {
                         sh "kubectl apply -f complete-demo.yaml"
+                        sh "kubectl apply -f manifests-monitoring"
+                        sh "kubectl apply -f manifests-logging"
                     }
                 }
             }
