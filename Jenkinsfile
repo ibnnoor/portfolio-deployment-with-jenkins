@@ -33,10 +33,10 @@ pipeline {
             steps {
                 script {
                     dir('kubernetes') {
-                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f webapp-deployment.yaml"
-                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f webapp-service.yaml"
-                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f postgres-deployment.yaml"
-                        sh "./../terraform/kubeconfig_portfolio kubectl apply -f postgres-service.yaml"
+                        sh "kubectl apply -f webapp-deployment.yaml"
+                        sh "kubectl apply -f webapp-service.yaml"
+                        sh "kubectl apply -f postgres-deployment.yaml"
+                        sh "kubectl apply -f postgres-service.yaml"
                     }
                 }
             }
